@@ -85,7 +85,6 @@ public class Scanner {
      */
     public Token next() throws IOException {
         isLexeme = false;
-        
         while (true) {
             char ch = nextChar();
                 
@@ -110,11 +109,7 @@ public class Scanner {
                     return scanColon();
                     
                 case '=': // single char tokens
-                case '*':
-                    
-                case '/':
-                    nextChar();
-                    
+                case '*':    
                 case '+':
                 case '-':
                 case ';': // start Brent's added cases
@@ -122,7 +117,13 @@ public class Scanner {
                 case '(':
                 case ')':
                     return scanSingleCharToken(ch);
-                    
+
+                case '/':
+                    if (nextChar() == '/'){
+                       System.out.println("This worked");
+                    } else {
+                        return scanSingleCharToken(ch);
+                    }
                 default:
                     isLexeme = true;
             }
@@ -158,7 +159,8 @@ public class Scanner {
                 
                 return (char) ch;
             case '/':                // second slash
-                endPos = 0;
+                return (char) ch;
+                
             case ' ':                // space
             case 255:                // non-breaking space
                 return (char) ch;
@@ -242,8 +244,8 @@ public class Scanner {
                     return new Token(String.valueOf(ch), TokenType.MINUS);
                             
                 case '/':
-                    return new Token(String.valueOf(ch), TokenType.DIVIDE);
-                    
+                        return new Token(String.valueOf(ch), TokenType.DIVIDE);
+                        
                 case '*':
                     return new Token(String.valueOf(ch), TokenType.MULTIPLY);
                 

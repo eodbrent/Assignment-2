@@ -17,7 +17,7 @@ public class CS390_Scanner {
     /**
      * Default location of the source file to scan.
      */
-    public static final String SOURCE = "C:/Users/Brent/Desktop/Prog1.txt";
+    public static final String SOURCE = "C:/Users/brent/Desktop/Proj1.txt";
     
     /**
      * Entry point that begins scanning
