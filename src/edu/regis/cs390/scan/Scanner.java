@@ -119,9 +119,19 @@ public class Scanner {
                     return scanSingleCharToken(ch);
 
                 case '/':
-                    if (nextChar() == '/'){
+                    char chSecond = nextChar();
+                    if (chSecond == '/'){
                         while (nextChar() != '\r'){}
                         endPos = 0;
+                        return next();
+                    }
+                    if (chSecond == '*') {
+                        while (true){
+                            if (nextChar() == '*'){
+                                if(nextChar() == '/'){break;}
+                            }
+                        }
+                        endPos=0;
                         return next();
                     } else {
                         return scanSingleCharToken(ch);
@@ -137,9 +147,9 @@ public class Scanner {
      * 
      * @return the current line number
      */
-    /*public int getLineNo() {
+    public int getLineNo() {
         return lineNo;
-    } */   
+    }    
 
   
     /**
@@ -154,17 +164,20 @@ public class Scanner {
             case '\n':            // ASCII Line feed, LF or
             case '\r':            //  carriage return, CR
                 if ((CR_LF) && (ch == '\r')) {
-                   nextChar();
+                    nextChar();
                 } else {
-                   lineNo++;
+                    lineNo++;
                 }
                 
                 return (char) ch;
             case '/':                // second slash
                 return (char) ch;
+            case '*':
+                return (char) ch;
             case ' ':                // space
             case 255:                // non-breaking space
                 return (char) ch;
+                        
             case -1:                 // Java read nothing, so
                 return '\0';         // we're at EOF
               
